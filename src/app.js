@@ -6,21 +6,32 @@ const morgan      = require('morgan')
 const cors        = require('cors')
 const app         = module.exports = express()
 const server      = http.createServer(app)
-const port        = parseInt(process.env.PORT || 3000)
+const port        = parseInt(process.env.PORT || 3000);
+const db          = require('./models');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use(cors({origin: true}))
 
-// ADD (MOUNT) YOUR MIDDLEWARE (ROUTES) HERE
-// ^^^ Example: app.use('/v1/kitten', require('./routes/kitten'))
 app.use(notFound)
 app.use(errorHandler)
+// db.connect();
+// Test the database connection and sync the models
+db.sequelize.authenticate()
+    .then(() => {
+        console.log('Connection to the database has been established successfully.');
+        return db.sequelize.sync();
+    })
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running on http://localhost:${port}`);
+        });
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
 
-server.listen(port)
-  .on('error', console.error.bind(console))
-  .on('listening', console.log.bind(console, 'Listening on ' + port));
 
 function notFound(req, res, next) {
   res.status(404)
