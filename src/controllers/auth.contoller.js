@@ -48,3 +48,30 @@ exports.userSignIn = async (req, res) => {
       return failure('Failure', 500, err.message, res);
     }
 };
+
+exports.userVerification = async (req, res) => {
+  try {
+    let payload = req.body;
+    console.log("payload",payload);
+    const user = await auth.findOne({
+      where:{
+      user_id:payload.user_id,
+      user_verification_code:payload.user_verification_code
+    }
+  }); 
+  if(!user){
+    return failure('Failure', 404, Message[102], res);
+   }; 
+   if(user && user.account_verification){
+    return failure('Failure', 409, Message[106], res);
+   };
+    await auth.update({
+      user_verification_code: null,
+      account_verified: true
+    },{where:{user_id: payload.user_id}});
+ 
+    return success('Success', 200, Message[105], res)
+  } catch (err) {
+    return failure('Failure', 500, err.message, res);
+  }
+};

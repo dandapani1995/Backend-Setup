@@ -5,8 +5,8 @@ const authController = require('../controllers/auth.contoller');
 // Define routes
 router.get('/', authController.getAllUsers);
 router.post('/signin', authController.userSignIn);
-// router.get('/:id', userController.getUserById);
-// router.put('/:id', userController.updateUser);
-// router.delete('/:id', userController.deleteUser);
+router.post('/verify', authController.userVerification);
+// router.put('/:id', authController.updateUser);
+// router.delete('/:id', authController.deleteUser);
 
 module.exports = router;
