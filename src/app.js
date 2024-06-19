@@ -8,15 +8,16 @@ const app         = module.exports = express()
 const server      = http.createServer(app)
 const port        = parseInt(process.env.PORT || 3000);
 const db          = require('./models');
+const route       = require('./routes/index');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(morgan('dev'))
 app.use(cors({origin: true}))
+app.use('/api',route)
+app.use(notFound);
 
-app.use(notFound)
-app.use(errorHandler)
-// db.connect();
+app.use(errorHandler);
 // Test the database connection and sync the models
 db.sequelize.authenticate()
     .then(() => {
@@ -24,7 +25,7 @@ db.sequelize.authenticate()
         return db.sequelize.sync();
     })
     .then(() => {
-        app.listen(port, () => {
+        server.listen(port, () => {
             console.log(`Server is running on http://localhost:${port}`);
         });
     })
