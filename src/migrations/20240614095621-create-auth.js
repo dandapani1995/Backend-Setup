@@ -12,6 +12,9 @@ module.exports = {
       access_token: {
         type: Sequelize.STRING
       },
+      user_verification_code: {
+        type: Sequelize.STRING
+      },
       user_id: {
         type: Sequelize.STRING
       },

@@ -22,7 +22,7 @@ app.use(errorHandler);
 db.sequelize.authenticate()
     .then(() => {
         console.log('Connection to the database has been established successfully.');
-        return db.sequelize.sync();
+        // return db.sequelize.sync();
     })
     .then(() => {
         server.listen(port, () => {

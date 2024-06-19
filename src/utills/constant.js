@@ -29,6 +29,16 @@ const roleData = [{
     updatedAt: new Date()
 }];
 
+const Message = {
+    
+    100: "User Already register with this email",
+    101: "Some thing went wrong",
+    102: "User not Found",
+    103: "Invalid username or password",
+    104: "User created successfully."
+
+}
 module.exports = {
-    roleData
+    roleData,
+    Message
 }

@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       onDelete: 'CASCADE'
     },
+    user_verification_code: {
+      type: DataTypes.STRING
+    },
     refresh_token: {
       type: DataTypes.STRING
     },
