@@ -7,6 +7,6 @@ router.get('/', authController.getAllUsers);
 router.post('/signin', authController.userSignIn);
 router.post('/verify', authController.userVerification);
 router.post('/login', authController.loginUser);
-// router.delete('/:id', authController.deleteUser);
+router.post('/email', authController.sendSampleEmail);
 
 module.exports = router;
