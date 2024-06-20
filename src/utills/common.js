@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const saltRounds = 10;
-
+const secretKey = process.env.SECRECT_KEY || 'Test@123'
  const hashPassword = async(plainPassword)=>{
     try {
         const hash = await bcrypt.hash(plainPassword, saltRounds);
@@ -31,8 +32,12 @@ const generateRandomString = async (length) =>{
     }
     return result;
 }
+const createToken= async (payload, expiresIn ='1day') =>{
+    return jwt.sign(payload, secretKey, { expiresIn });
+}
 module.exports = {
     hashPassword,
     comparePassword,
-    generateRandomString
+    generateRandomString,
+    createToken,
 }

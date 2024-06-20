@@ -1,37 +1,39 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class auth extends Model {
+  class Auth extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
-      // auth.belongsTo(models.User, {
-      //   foreignKey: 'user_id',
-      //   as: 'user',
-      //   onDelete: 'CASCADE'
-      // });
+      // Define association here
+      Auth.belongsTo(models.User, {
+        foreignKey: 'user_id',
+        as: 'user',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      });
     }
   }
-  auth.init({
+
+  Auth.init({
     access_token: {
       type: DataTypes.STRING
     },
-    user_id: {
-      type: DataTypes.STRING,
-      references: {
-        model: 'users', // table name
-        key: 'uuid'
-      },
-      onDelete: 'CASCADE'
-    },
     user_verification_code: {
       type: DataTypes.STRING
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'users', // References the 'users' table
+        key: 'id'
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE'
     },
     refresh_token: {
       type: DataTypes.STRING
@@ -54,9 +56,21 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW
+    }
   }, {
     sequelize,
-    modelName: 'auth',
+    modelName: 'Auth',
+    tableName: 'auth', // Explicitly define table name
   });
-  return auth;
+
+  return Auth;
 };

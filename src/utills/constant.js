@@ -37,7 +37,8 @@ const Message = {
     103: "Invalid username or password",
     104: "User created successfully.",
     105: "User account verified successfully",
-    106: "User account already verified"
+    106: "User account already verified",
+    107: "User account not verified",
 
 }
 module.exports = {

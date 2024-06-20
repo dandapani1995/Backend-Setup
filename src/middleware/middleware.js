@@ -1,4 +1,4 @@
-const success = (status, code, data, res)=>{
+const Success = (status, code, data, res)=>{
     res.send({
         status:status,
         statusCode: code,
@@ -6,7 +6,7 @@ const success = (status, code, data, res)=>{
     })
 };
 
-const failure = (status, code, message, res)=>{
+const Failure = (status, code, message, res)=>{
     res.send( {
         status:status,
         statusCode: code,
@@ -15,6 +15,6 @@ const failure = (status, code, message, res)=>{
 };
 
 module.exports ={
-    success,
-    failure
+    Success,
+    Failure
 }
