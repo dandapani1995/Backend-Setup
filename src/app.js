@@ -7,8 +7,8 @@ const cors        = require('cors')
 const app         = module.exports = express()
 const server      = http.createServer(app)
 const port        = parseInt(process.env.PORT || 3000);
-const db          = require('./models');
-const route       = require('./routes/index');
+const db          = require('../src/models/index');
+const route       = require('../src/routes/index');
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))

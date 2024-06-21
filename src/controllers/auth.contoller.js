@@ -6,9 +6,10 @@ const {
   hashPassword,
   comparePassword,
   generateRandomString,
-  createToken
+  createToken,
+  Success,
+  Failure,
 } = require('../utills/common');
-const { Success, Failure } = require('../middleware/middleware');
 const { Message } = require("../utills/constant");
 const { emailSend } = require("../utills/services");
 
@@ -130,7 +131,7 @@ exports.loginUser = async (req, res) => {
       return Failure('Failure', 500, Message[103], res);
     };
     let tokenPayload = {
-      user_id: userExe.id,
+      id: userExe.id,
       email: userExe.email,
       role: userExe.roles[0].role.id,
       roleName: userExe.roles[0].role.name

@@ -39,6 +39,9 @@ const Message = {
     105: "User account verified successfully",
     106: "User account already verified",
     107: "User account not verified",
+    108: "Un authorized",
+    109: "Invalid token"
+
 
 }
 module.exports = {
